@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京都 ニコニコ着物レンタル｜niconico kimono rental</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 字體 */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EBCEC0; /* 奶茶粉 */
+        }
+        :root {
+            /* 主色與主題色板 */
+            --primary-color: #7d626a;      /* 主色 頁面標題、主選單字色 */
+            --main-text-color: #4b3a35;    /* 內容深色 強對比 */
+            --accent-pink: #e6c1c3;        /* 點綴/價錢/副標 */
+            --accent-red: #b17477;
+            --bg-milktea: #EBCEC0;
+            --bg-section: #F8F3E4;
+            --bg-blue: #D2EDEC;
+            --bg-peach: #F6DAC5;
+        }
+        /* 主色調實用類 */
+        .text-primary { color: var(--primary-color) !important; }
+        .bg-primary { background-color: var(--primary-color); }
+        .text-accent-pink { color: var(--accent-pink) !important; }
+        .text-accent-red { color: var(--accent-red); }
+        .bg-milktea { background-color: var(--bg-milktea); }
+        .bg-section { background-color: var(--bg-section); }
+        .bg-blue { background-color: var(--bg-blue); }
+        .bg-peach { background-color: var(--bg-peach); }
+        /* 按鈕與 hover demo */
+        .hover\:bg-primary-dark:hover { background-color: #5e474c; }
+        /* 其他原有樣式保留或按需調整... */
+        .border-primary { border-color: var(--primary-color); }
+        .shadow-primary-lg { box-shadow: 0 10px 15px -3px var(--primary-color), 0 4px 6px -4px var(--primary-color); }
+        .hover\:bg-primary-dark:hover { background-color: #c026d3; } /* Fuchsia 600 */
+
+        /* --- Carousel Styles --- */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+        }
+        .mySlides {
+            display: none;
+            width: 100%;
+        }
+        .mySlides img {
+            width: 100%;
+            height: auto;
+            max-height: 500px; /* 您可以調整這個高度 */
+            object-fit: cover;
+            border-radius: 0.75rem; /* rounded-xl */
+            vertical-align: middle;
+        }
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev {
+            left: 0;
+            border-radius: 0 3px 3px 0;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        /* Fading animation */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+        /* --- End Carousel Styles --- */
+
+        /* Ensure prose styles don't conflict with custom lists */
+        .prose ul:not([class]) { padding-left: 1.625em; }
+        .prose ul:not([class]) > li::before { content: ""; /* Reset default bullets */ margin-left: 0; position: static; }
+
+        /* Ensure custom list styles in longDesc are applied */
+        .prose .list-none { list-style-type: none; padding-left: 0 !important; /* Force override */ }
+        .prose .list-none li { margin-left: 0; padding-left: 0; }
+
+        /* Lightbox 樣式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 70%;
+            max-height: 85vh;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0.5rem;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        .lightbox-close:hover {
+            color: #bbb;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 16px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            user-select: none;
+        }
+        .lightbox-nav:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .lightbox-prev {
+            left: 20px;
+        }
+        .lightbox-next {
+            right: 20px;
+        }
+        .gallery-cover {
+            position: relative;
+            cursor: pointer;
+        }
+        .gallery-cover::after {
+            content: '點擊查看更多 ›';
+            position: absolute;
+            bottom: 12px;
+            right: 10px;
+            background-color: rgba(125, 98, 106, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+    </style>
+    <!-- 設定 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#EBCEC0', // 紫紅色
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+
+    <!-- 主內容容器 -->
+    <div id="app" class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-4 bg-milktea">
+        
+        <style>
+            /* 多層級導航菜單樣式 */
+            .nav-item {
+                position: relative;
+                display: inline-block;
+            }
+            .dropdown-menu {
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                min-width: 150px;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                margin-top: 0.5rem;
+                z-index: 100;
+            }
+            .nav-item:hover > .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                margin-top: 0;
+            }
+            .dropdown-item {
+                position: relative;
+                display: block;
+                padding: 0.75rem 1.25rem;
+                color: #7d626a;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+            }
+            .dropdown-item:hover {
+                background: #fef2f2;
+                color: #a855f7;
+            }
+            .dropdown-submenu {
+                position: absolute;
+                left: 100%;
+                top: 0;
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                min-width: 180px;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                margin-left: 0.5rem;
+            }
+            .dropdown-item:hover > .dropdown-submenu {
+                opacity: 1;
+                visibility: visible;
+                margin-left: 0;
+            }
+            .has-submenu::after {
+                content: '›';
+                float: right;
+                margin-left: 1rem;
+            }
+        </style>
+        
+        <!-- 導航列 -->
+        <header class="mb-8 border-b pb-4 shadow-sm bg-section rounded-xl sticky top-4 z-50">
+            <nav class="flex flex-col px-4 py-2">
+                <!-- Top row: Title and Languages -->
+                <div class="flex flex-wrap justify-between items-center w-full pb-2">
+                    <!-- New Title -->
+                    <a href="#home" class="text-3xl font-bold text-primary tracking-tight">
+                        ✿⁺◟ Niconico Kimono rental
+                    </a>
+                    <!-- New Language Switcher -->
+                    <div class="flex gap-x-2 sm:gap-x-3 mt-2 sm:mt-0">
+                        <a href="#" class="text-sm text-gray-500 hover:text-primary transition duration-150">日本語</a>
+                        <span class="text-sm text-gray-400">｜</span>
+                        <a href="#" class="text-sm text-primary font-bold hover:text-accent-pink transition duration-150">中文</a>
+                        <span class="text-sm text-gray-400">｜</span>
+                        <a href="#" class="text-sm text-gray-500 hover:text-primary transition duration-150">English</a>
+                    </div>
+                </div>
+                <!-- Bottom row: Main Navigation (Updated with separators) -->
+                <div class="flex flex-wrap justify-center items-center gap-y-2 mt-2 pt-2 border-t w-full">
+                    <a href="#home" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">首頁</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#store-intro" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">店內介紹</a>
+                    <span class="text-gray-400">｜</span>
+                    
+                    <!-- 和服方案 - 帶下拉菜單 -->
+                    <div class="nav-item px-2">
+                        <a href="#kimono-plans" class="text-base text-primary hover:text-accent-pink transition duration-150">和服方案</a>
+                        <div class="dropdown-menu">
+                            <!-- 女士方案 -->
+                            <div class="dropdown-item has-submenu">
+                                女士
+                                <div class="dropdown-submenu">
+                                    <a href="#plan/plan1" class="dropdown-item">小紋套餐</a>
+                                    <a href="#plan/plan2" class="dropdown-item">高級小紋套餐</a>
+                                    <a href="#plan/plan3" class="dropdown-item">蕾絲套餐</a>
+                                    <a href="#plan/plan4" class="dropdown-item">二尺袖套餐</a>
+                                    <a href="#plan/plan5" class="dropdown-item">訪問服套餐</a>
+                                    <a href="#plan/plan6" class="dropdown-item">高級訪問服套餐</a>
+                                    <a href="#plan/plan7" class="dropdown-item">黑留袖、色留袖套餐</a>
+                                    <a href="#plan/plan8" class="dropdown-item">振袖套餐</a>
+                                </div>
+                            </div>
+                            <!-- 男士方案 -->
+                            <div class="dropdown-item has-submenu">
+                                男士
+                                <div class="dropdown-submenu">
+                                    <a href="#plan/plan10" class="dropdown-item">和服套餐</a>
+                                    <a href="#plan/plan11" class="dropdown-item">高級武士服套餐</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <span class="text-gray-400">｜</span>
+                    <a href="#hairstyle" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">髮型設計</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#photo-plans" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">攝影方案</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#tea-room" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">茶室</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#reviews" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">客返圖</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#faq" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">常見問題</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#access" class="text-base text-primary hover:text-accent-pink transition duration-150 px-2">交通資訊</a>
+                    <span class="text-gray-400">｜</span>
+                    <a href="#booking" class="text-base font-bold transition duration-150 px-3 py-1 rounded-md" style="background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%); color: white; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);">點我預約</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 這裡將由 JavaScript 動態渲染內容 -->
+        <div id="content" class="min-h-[60vh]">
+            <div class="text-center py-20 text-gray-500">載入中...</div>
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. 方案資料定義 (已更新為和服內容)
+        // ----------------------------------------------------
+        const kimonoPlans = [
+            // --- 女士方案 (已排序) ---
+            {
+                id: 'plan1',
+                name: '【女士】小紋套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">以細緻優雅的「全面花紋」為特色，適合各種場合。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁小紋¥5,500一套</li>
+                        <li>⌁半幅腰帶/兵兒帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'img/綠底粉花小紋4.JPG',
+                price: '¥5,500（含稅）',
+                photos: [
+                    'https://placehold.co/400x300/d946ef/ffffff?text=小紋和服範例1',
+                    'https://placehold.co/400x300/d946ef/ffffff?text=小紋和服範例2'
+                ]
+            },
+            /* { // 浴衣 - 已註解
+                id: 'plan9',
+                name: '【女士】浴衣套餐（6月-9月）',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">夏季限定（6月至9月）！浴衣材質輕薄涼爽，花色繽紛，是參加夏日祭典與觀賞煙火的最佳選擇。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁浴衣一套</li>
+                        <li>⌁肌襦袢（內襯衣）</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/06b6d4/ffffff?text=女士浴衣套餐',
+                price: '¥5,500（含稅）',
+                photos: []
+            },
+            */
+            {
+                id: 'plan2',
+                name: '【女士】高級小紋套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">材質與設計更高級的小紋和服，適合追求更高質感與獨特花紋的您。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁高級小紋¥7,700一套</li>
+                        <li>⌁半幅腰帶/兵兒帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/c026d3/ffffff?text=高級小紋套餐',
+                price: '¥7,700（含稅）',
+                photos: []
+            },
+            {
+                id: 'plan3',
+                name: '【女士】蕾絲套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">近年來人氣爆棚的款式！結合日式傳統與西方蕾絲元素，打造獨一無二的甜美或復古風格。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁蕾絲和服¥7,700一套</li>
+                        <li>⌁半幅腰帶/兵兒帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'img/白蕾絲3.JPG',
+                price: '¥7,700（含稅）',
+                photos: [
+                    'https://placehold.co/400x300/a21caf/ffffff?text=蕾絲細節'
+                ]
+            },
+            {
+                id: 'plan4',
+                name: '【女士】二尺袖套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">「二尺袖」是充滿活力的「中袖長」款式。花紋通常色彩鮮明、圖案大方，推薦給喜歡鮮豔色彩的您。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁二尺袖¥8,800一套</li>
+                        <li>⌁半幅腰帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'img/粉二尺袖3.JPG',
+                price: '¥8,800（含稅）',
+                photos: []
+            },
+            {
+                id: 'plan5',
+                name: '【女士】訪問服套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">「訪問服」是高雅的準禮服，不論已婚或未婚皆可穿著。適合參加朋友婚宴、派對、茶會等正式場合。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁訪問服¥11,000一套</li>
+                        <li>⌁袋帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/701a75/ffffff?text=女士訪問服套餐',
+                price: '¥11,000（含稅）',
+                photos: []
+            },
+            {
+                id: 'plan6',
+                name: '【女士】高級訪問服套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">使用頂級絲綢與手工刺繡的「訪問服」。無論是布料、染色或圖案，皆為上乘之選，適合最重要的時刻。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁高級訪問服¥16,500一套</li>
+                        <li>⌁高級袋帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                        
+                        <!-- 相簿封面 -->
+                        <div class="mt-6 not-prose">
+                            <div class="gallery-cover inline-block rounded-lg overflow-hidden shadow-md cursor-pointer" style="width: 300px; height: 400px;" onclick="openLightbox(['img/米高級訪問服1.jpg', 'img/米高級訪問服2.jpg', 'img/米高級訪問服3.jpg', 'img/米高級訪問服5.jpg', 'img/米高級訪問服6.JPG', 'img/高級武士x高級訪問1.jpg'], 0)">
+                                <img src="img/米高級訪問服1.jpg" alt="高級訪問服相簿" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/300x400/6b21a8/ffffff?text=高級訪問服'">
+                            </div>
+                        </div>
+                    </div>
+                `,
+                image: 'img/高級訪問服1.JPG',
+                price: '¥16,500（含稅）',
+                photos: []
+            },
+            {
+                id: 'plan7',
+                name: '【女士】黑留袖、色留袖套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">「留袖」是已婚女士的第一禮服（黑留袖）或準禮服（色留袖），通常在婚禮等最莊重的场合穿著。圖案集中在下擺，展現極致的格調與品味。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁黑留袖/色留袖¥11,000一套</li>
+                        <li>⌁高級袋帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/1c1917/ffffff?text=黑留袖、色留袖套餐',
+                price: '¥11,000（含稅）',
+                photos: []
+            },
+            /* { // 高級訪問服 - 已註解
+                id: 'plan6',
+                name: '【女士】高級訪問服套餐',
+                // ... content ...
+            }, */
+            {
+                id: 'plan8',
+                name: '【女士】振袖套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、髮型、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">「振袖」是未婚女士的最高級禮服，以華麗的長袖為特徵。適合畢業典禮、成人式或拍攝紀念照。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁振袖¥9,900~27,500一套</li>
+                        <li>⌁袋帶</li>
+                        <li>⌁精美髮型</li>
+                        <li>⌁草履、手提包</li>
+                        <li>⌁可免費租借拍攝道具（雨傘、扇子）</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                        
+                        <!-- 振袖價位分類 -->
+                        <div class="mt-6 mb-6 p-4 bg-gray-50 rounded-xl">
+                            <div class="flex flex-wrap gap-3 justify-center">
+                                <button class="furisode-category-btn active" onclick="filterFurisode('all')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: #7d626a; color: white; font-weight: 500; transition: all 0.3s ease;">
+                                    全部振袖
+                                </button>
+                                <button class="furisode-category-btn" onclick="filterFurisode('premium')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                                    精品振袖 ¥9,900
+                                </button>
+                                <button class="furisode-category-btn" onclick="filterFurisode('gold')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                                    金絲振袖 ¥16,500
+                                </button>
+                                <button class="furisode-category-btn" onclick="filterFurisode('couture')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                                    高訂振袖 ¥27,500
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 照片展示區 -->
+                        <style>
+                            .furisode-photo {
+                                aspect-ratio: 3/4;
+                                overflow: hidden;
+                            }
+                            .furisode-photo img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        </style>
+
+                        <div id="furisode-gallery" class="grid grid-cols-2 sm:grid-cols-3 gap-4 not-prose">
+                            <!-- 精品振袖照片 -->
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="premium">
+                                <img src="https://placehold.co/400x500/d946ef/ffffff?text=精品振袖+1" alt="精品振袖 1">
+                            </div>
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="premium">
+                                <img src="https://placehold.co/400x500/d946ef/ffffff?text=精品振袖+2" alt="精品振袖 2">
+                            </div>
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="premium">
+                                <img src="https://placehold.co/400x500/d946ef/ffffff?text=精品振袖+3" alt="精品振袖 3">
+                            </div>
+                            
+                            <!-- 金絲振袖照片 -->
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="gold">
+                                <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖+1" alt="金絲振袖 1">
+                            </div>
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="gold">
+                                <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖+2" alt="金絲振袖 2">
+                            </div>
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md" data-furisode-type="gold">
+                                <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖+3" alt="金絲振袖 3">
+                            </div>
+                            
+                            <!-- 高訂振袖照片 - 白金振袖相簿（封面） -->
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md gallery-cover" data-furisode-type="couture" onclick="openLightbox(['img/白金振袖4.jpg', 'img/白金振袖1.jpg', 'img/白金振袖2.jpg', 'img/白金振袖3.jpg'], 0)" style="cursor: pointer;">
+                                <img src="img/白金振袖4.jpg" alt="白金振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖'">
+                            </div>
+                            
+                            <!-- 高訂振袖照片 - 綠振袖相簿（封面） -->
+                            <div class="furisode-photo rounded-lg overflow-hidden shadow-md gallery-cover" data-furisode-type="couture" onclick="openLightbox(['img/綠振袖1.jpg', 'img/綠振袖3.jpg', 'img/綠振袖4.jpg', 'img/綠振袖6.jpg'], 0)" style="cursor: pointer;">
+                                <img src="img/綠振袖1.jpg" alt="綠振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖'">
+                            </div>
+                        </div>
+                    </div>
+                `,
+                image: 'img/白精品振袖2.jpg',
+                price: '¥9,900~27,500（含稅）',
+                photos: []
+            },
+            
+            // --- 男士方案 (已排序) ---
+            {
+                id: 'plan10',
+                name: '【男士】和服套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">低調而帥氣的男士專屬方案，體驗傳統日本風格。我們提供多種尺寸和顏色的男士和服，風格沉穩，適合與伴侶一同漫步京都。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁男士和服¥5,500一套</li>
+                        <li>⌁腰帶、羽織</li>
+                        <li>⌁草履、手提包</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/3b82f6/ffffff?text=男士和服套餐',
+                price: '¥5,500（含稅）',
+                photos: [
+                    'https://placehold.co/400x300/3b82f6/ffffff?text=男士款式',
+                    'https://placehold.co/400x300/3b82f6/ffffff?text=情侶搭配'
+                ]
+            },
+            /*
+            { // 男士浴衣 - 已註解
+                id: 'plan12',
+                name: '【男士】浴衣套餐（6月-9月）',
+                shortDesc: '⋈*｡ 價格皆含腰帶、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">夏季限定（6月至9月）！男士浴衣同樣輕便有型，適合在炎熱的天氣中帥氣地漫步京都。</p>
+                    
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁男士浴衣一套</li>
+                        <li>⌁內襯、腰帶</li>
+                        <li>⌁二趾襪、草履、手提包</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'https://placehold.co/600x450/0891b2/ffffff?text=男士浴衣套餐',
+                price: '¥5,500（含稅）',
+                photos: []
+            },
+            */
+            {
+                id: 'plan11',
+                name: '【男士】高級武士服套餐',
+                shortDesc: '⋈*｡ 價格皆含腰帶、草履、手提包',
+                longDesc: `
+                    <!-- ✿和服介紹 -->
+                    <h2 class="text-2xl font-bold text-main mb-3" style="font-weight: 600;">✿和服介紹</h2>
+                    <p class="mb-4 text-main">體驗更正式的男士服飾「袴」或高品質的和服。此方案提供更精緻的布料與設計，展現武士般的氣勢與品味。</p>
+
+                    <!-- ✿方案包含： -->
+                    <h2 class="text-2xl font-bold text-main mt-6 mb-3" style="font-weight: 600;">✿方案包含：</h2>
+                    <ul class="list-none space-y-2 pl-0 text-main" style="padding-left: 0;">
+                        <li>⌁高級男士和+袴¥17,800一套</li>
+                        <li>⌁腰帶、羽織</li>
+                        <li>⌁草履、手提包</li>
+                    </ul>
+                    
+                    <!-- ✿歸還時間 -->
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-xl font-bold text-red-600 mb-2">※當日17:30前需歸還</h3>
+                        <h3 class="text-xl font-bold text-red-600">※免費隔日中午12:00前歸還（需付押金¥10,000）</h3>
+                    </div>
+
+                    <!-- ⋆˚. 照片參考₊⊹ -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-main mb-3 flex items-baseline" style="font-weight: 600;">
+                            <span>⋆˚. 照片參考₊⊹</span>
+                            <span class="text-lg font-medium text-gray-600 ml-2">｜可提前預留款式</span>
+                        </h2>
+                    </div>
+                `,
+                image: 'img/高級武士服1.jpg',
+                price: '¥17,380（含稅）',
+                photos: []
+            }
+        ];
+
+        // ----------------------------------------------------
+        // 2. 渲染邏輯 (*** 所有函式都已補全 ***)
+        // ----------------------------------------------------
+        const contentDiv = document.getElementById('content');
+        
+        // --- Carousel Logic ---
+        let slideIndex = 1;
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (slides.length === 0) return; // 如果輪播圖不在當前頁面，則不執行
+
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                 if (slides[i]) slides[i].style.display = "none";
+            }
+            
+            if (slides[slideIndex-1]) {
+                slides[slideIndex-1].style.display = "block";
+            }
+        }
+        // --- End Carousel Logic ---
+
+
+        /**
+         * 渲染 - 首頁
+         */
+        function renderHome() {
+            let html = `
+                <!-- Niconico特色 -->
+                <div class="bg-section rounded-xl shadow-lg p-6 md:p-8 mb-8">
+                    <h2 class="text-3xl font-extrabold text-primary mb-6 text-center">⌁ ₊本店特色 ₊⌁</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+                        <div class="p-4 bg-peach rounded-lg shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition duration-300" onclick="location.hash='faq'; setTimeout(() => { const faqItem = document.getElementById('return-time-faq'); const faqQuestion = faqItem?.querySelector('.faq-question'); const faqAnswer = faqItem?.querySelector('.faq-answer'); const faqIcon = faqItem?.querySelector('.faq-icon'); if (faqAnswer && !faqAnswer.classList.contains('active')) { faqAnswer.classList.add('active'); faqIcon?.classList.add('active'); } faqItem?.scrollIntoView({behavior: 'smooth', block: 'center'}); }, 100);">
+                            <img src="img/免費歸還.png" alt="免費隔日歸還" class="mb-2 object-contain" style="width: 100px; height: 100px;">
+                            <p class="text-xl font-semibold text-primary mt-1">免費隔日歸還</p>
+                        </div>
+                        <div class="p-4 bg-blue rounded-lg shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition duration-300" onclick="location.hash='faq'; setTimeout(() => { const faqItem = document.getElementById('cross-store-return-faq'); const faqAnswer = faqItem?.querySelector('.faq-answer'); const faqIcon = faqItem?.querySelector('.faq-icon'); if (faqAnswer && !faqAnswer.classList.contains('active')) { faqAnswer.classList.add('active'); faqIcon?.classList.add('active'); } faqItem?.scrollIntoView({behavior: 'smooth', block: 'center'}); }, 100);">
+                            <span class="text-2xl h-12 flex items-center text-primary">·*</span>
+                            <p class="text-xl font-semibold text-primary mt-1">可跨店歸還</p>
+                        </div>
+                        <div class="p-4 bg-peach rounded-lg shadow-sm flex flex-col items-center justify-center">
+                            <span class="text-2xl h-12 flex items-center text-primary">·*</span>
+                            <p class="text-xl font-semibold text-primary mt-1">多種免費髮型可挑選</p>
+                        </div>
+                        <div class="p-4 bg-blue rounded-lg shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition duration-300" onclick="location.hash='photo-plans';">
+                            <span class="text-2xl h-12 flex items-center text-primary">·*</span>
+                            <p class="text-xl font-semibold text-primary mt-1">專業攝影師</p>
+                        </div>
+                        <div class="p-4 bg-peach rounded-lg shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition duration-300" onclick="location.hash='tea-room';">
+                            <span class="text-2xl h-12 flex items-center text-primary">·*</span>
+                            <p class="text-xl font-semibold text-primary mt-1">提供茶室租借</p>
+                        </div>
+                        <div class="p-4 bg-blue rounded-lg shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition duration-300" onclick="location.hash='store-intro'; setTimeout(() => { const staffGallery = document.getElementById('staff-gallery'); if (staffGallery) { staffGallery.scrollIntoView({behavior: 'smooth', block: 'center'}); setTimeout(() => { const galleryImg = staffGallery.querySelector('.store-gallery-cover'); if (galleryImg) { galleryImg.click(); } }, 300); } }, 100);">
+                            <span class="text-2xl h-12 flex items-center text-primary">·*</span>
+                            <p class="text-xl font-semibold text-primary mt-1">服務親切</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 和服方案選擇 (標題) -->
+                <h2 class="text-4xl font-extrabold text-primary mb-8 text-center mt-12">⌁ ₊和服方案⌁ ₊</h2>
+                
+                <!-- 和服方案選擇 (列表) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            `;
+            // --- Loop through plans ---
+            kimonoPlans.forEach(plan => {
+                // Skip commented out plans
+                if (plan.id && plan.id.startsWith('plan')) { // Basic check if it's a valid plan entry
+                    html += `
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden flex flex-col">
+                            <!-- 圖片 (上方) -->
+                            <div class="w-full aspect-[4/3] overflow-hidden">
+                                <img src="${plan.image}" alt="${plan.name}" class="w-full h-full object-cover transition duration-500 hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x450/cccccc/000000?text=圖片缺失'">
+                            </div>
+
+                            <!-- 資訊 (下方) -->
+                            <div class="p-6 flex flex-col justify-between flex-grow">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">${plan.name}</h3>
+                                    <p class="text-primary italic mb-3 text-sm">${plan.shortDesc}</p>
+                                    <p class="text-3xl font-bold text-primary mb-4">${plan.price}</p>
+                                </div>
+                                
+                                <div class="flex justify-end">
+                                    <a href="#plan/${plan.id}" class="inline-block bg-primary text-white py-2 px-6 rounded-lg font-medium shadow-md hover:bg-primary-dark transition duration-300">
+                                        查看方案介紹 →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>`;
+
+            // 添加攝影方案預覽
+            html += `
+                <div class="bg-white rounded-xl shadow-xl p-6 md:p-10 lg:p-12 mt-12">
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">⌁ ₊攝影方案⌁ ₊</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+                        <!-- Left Column: Text -->
+                        <div class="prose max-w-none flex flex-col justify-center" style="min-height: 500px;">
+                            <h3 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.方案選擇</h3>
+                            
+                            <!-- Plan A -->
+                            <div class="mb-6">
+                                <h4 class="text-2xl font-semibold text-primary mb-2">Ａ.30分鐘外拍方案（1~2人）</h4>
+                                <p class="text-gray-700 m-0">在周邊的景點（如知恩院、円山公園）快速拍攝。</p>
+                                <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                    <li>● <strong>費用：</strong> ¥11,000</li>
+                                    <li>● <strong>內容：</strong> 底片30-60張，無精修</li>
+                                </ul>
+                            </div>
+
+                            <!-- Plan B -->
+                            <div class="mb-6">
+                                <h4 class="text-2xl font-semibold text-primary mb-2">B.60分鐘外拍方案（1~4人）</h4>
+                                <p class="text-gray-700 m-0">可至清水寺、二三年坂等知名景點拍攝。</p>
+                                <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                    <li>● <strong>費用：</strong> ¥15,000</li>
+                                    <li>● <strong>內容：</strong> 底片60-80張，精修5張</li>
+                                </ul>
+                                <p class="font-bold text-red-500 mt-2 m-0">.ᐟ‪‪.ᐟ可免費在店內茶室拍攝</p>
+                            </div>
+
+                            <!-- Plan C -->
+                            <div class="mb-6">
+                                <h4 class="text-2xl font-semibold text-primary mb-2">C.60分鐘外拍方案（4~6人）</h4>
+                                <p class="text-gray-700 m-0">可至清水寺、二三年坂等知名景點拍攝。</p>
+                                <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                    <li>● <strong>費用：</strong> ¥20,000</li>
+                                    <li>● <strong>內容：</strong> 底片60-80張，精修10張</li>
+                                </ul>
+                                <p class="font-bold text-red-500 mt-2 m-0">.ᐟ‪‪.ᐟ可免費在店內茶室拍攝</p>
+                            </div>
+
+                            <!-- Link to full page -->
+                            <a href="#photo-plans" class="inline-block mt-4 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition duration-300 no-underline">
+                                查看詳細內容→
+                            </a>
+                        </div>
+
+                        <!-- Right Column: Image -->
+                        <div>
+                            <img src="img/攝影封面.JPG" alt="專業攝影作品" class="w-full rounded-lg shadow-md" style="aspect-ratio: 4/5; object-fit: cover; object-position: center;" />
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 添加 Footer
+            html += getFooterHTML();
+
+            contentDiv.innerHTML = html;
+        }
+
+        /**
+         * 渲染 - 和服方案選擇 (獨立頁面)
+         */
+        function renderKimonoPlans() {
+            let html = `
+                <!-- 和服方案選擇 (標題) -->
+                <h2 class="text-4xl font-extrabold text-primary mb-8 text-center">⌁ ₊和服方案⌁ ₊</h2>
+                
+                <!-- 和服方案選擇 (列表) -->
+                <div class="space-y-6">
+            `;
+            // --- Loop through plans ---
+            kimonoPlans.forEach(plan => {
+                // Skip commented out plans
+                if (plan.id && plan.id.startsWith('plan')) { // Basic check if it's a valid plan entry
+                    html += `
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden flex flex-row">
+                            <!-- 圖片 (左側) -->
+                            <div class="w-1/3 aspect-square overflow-hidden">
+                                <img src="${plan.image}" alt="${plan.name}" class="w-full h-full object-cover transition duration-500 hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x450/cccccc/000000?text=圖片缺失'">
+                            </div>
+
+                            <!-- 資訊 (右側) -->
+                            <div class="w-2/3 p-6 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">${plan.name}</h3>
+                                    <p class="text-primary italic mb-3 text-sm">${plan.shortDesc}</p>
+                                    <p class="text-3xl font-bold text-primary mb-4">${plan.price}</p>
+                                </div>
+                                
+                                <div class="flex justify-end">
+                                    <a href="#plan/${plan.id}" class="inline-block bg-primary text-white py-2 px-6 rounded-lg font-medium shadow-md hover:bg-primary-dark transition duration-300">
+                                        查看方案介紹 →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>`;
+
+            // 添加 Footer
+            html += getFooterHTML();
+
+            contentDiv.innerHTML = html;
+        }
+
+        /**
+         * 渲染 - 方案詳細頁面 (*** 完整版 ***)
+         * @param {string} planId - 方案ID
+         */
+        function renderPlanDetail(planId) {
+            const plan = kimonoPlans.find(p => p.id === planId);
+
+            if (!plan) {
+                // 找不到方案時的錯誤頁面
+                contentDiv.innerHTML = `
+                    <div class="text-center py-20 bg-white rounded-xl shadow-lg">
+                        <h2 class="text-4xl font-bold text-red-500 mb-4">找不到方案</h2>
+                        <p class="text-xl text-gray-600 mb-8">您請求的方案 ID: "${planId}" 不存在。</p>
+                        <a href="#kimono-plans" class="bg-gray-500 text-white py-2 px-6 rounded-lg font-medium hover:bg-gray-600 transition duration-300">
+                            &larr; 返回方案列表
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            // 處理多張照片的 HTML (照片參考)
+            let photoGallery = '';
+            if (plan.photos && plan.photos.length > 0) {
+                photoGallery = `
+                    <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 not-prose">
+                        ${plan.photos.map(photoUrl => `
+                            <div class="rounded-lg overflow-hidden shadow-md">
+                                <img src="${photoUrl}" alt="方案補充照片" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/400x300/cccccc/000000?text=圖片缺失'">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // 方案詳細頁面結構 (*** 全新單欄佈局 ***)
+            contentDiv.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 md:p-10 lg:p-12">
+                    <!-- 返回按鈕 -->
+                    <a href="#kimono-plans" class="flex items-center text-primary hover:text-purple-700 font-semibold mb-6 transition duration-150">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        返回方案列表
+                    </a>
+
+                    <!-- 新的單欄佈局容器 -->
+                    <div class="max-w-3xl mx-auto">
+                        
+                        <!-- 1. 標題和價格 -->
+                        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+                            ${plan.name} <span class="font-light text-gray-700">｜ ${plan.price}</span>
+                        </h1>
+
+                        <!-- 2. 簡短描述 -->
+                        <p class="text-xl text-primary mb-6 italic font-medium">
+                            ${plan.shortDesc}
+                        </p>
+
+                        <!-- 3. 主要圖片 -->
+                        <div class="mb-6 aspect-square overflow-hidden rounded-xl shadow-xl border-4 border-gray-100">
+                            <img src="${plan.image}" alt="${plan.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x450/cccccc/000000?text=圖片缺失'">
+                        </div>
+
+                        <!-- 4. 預約按鈕 -->
+                        <div class="mb-8">
+                            <button class="w-full bg-primary text-white py-4 px-8 rounded-xl text-xl font-bold shadow-lg shadow-primary-lg/50 hover:bg-primary-dark transition duration-300 transform hover:scale-[1.01]">
+                                點我預約 *ੈ✩‧₊
+                            </button>
+                        </div>
+
+                        <!-- 5. 詳細介紹 (來自 longDesc) -->
+                        <div class="prose max-w-none">
+                            ${plan.longDesc}
+                        </div>
+                        
+                        <!-- 6. 照片參考 (來自 photos) -->
+                        ${photoGallery}
+
+                    </div>
+
+                    <!-- Lightbox 燈箱 -->
+                    <div id="lightbox" class="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
+                        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                        <span class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</span>
+                        <div class="lightbox-content">
+                            <img id="lightbox-img" src="" alt="相簿圖片">
+                            <div style="text-align: center; color: white; margin-top: 1rem; font-size: 1.125rem;">
+                                <span id="lightbox-counter"></span>
+                            </div>
+                        </div>
+                        <span class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</span>
+                    </div>
+                </div>
+
+                ${getFooterHTML()}
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * 渲染 - 靜態頁面 (通用模板) (*** 完整版 ***)
+         * @param {string} title - 頁面大標題
+         * @param {string} contentHtml - 頁面的 HTML 內容
+         */
+        function renderStaticPage(title, contentHtml) {
+            contentDiv.innerHTML = `
+                <div class="bg-white rounded-xl shadow-xl p-6 md:p-10 lg:p-12 prose max-w-none">
+                    <h1 class="text-4xl font-extrabold text-gray-900 mb-6">${title}</h1>
+                    ${contentHtml}
+                </div>
+
+                ${getFooterHTML()}
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        /**
+         * 渲染 - 髮型設計 (*** 完整版 ***) - Not in Nav, but exists
+         */
+        function renderHairMakeup() { // This function exists
+            const content = `
+                <p class="text-lg text-gray-700 mb-4">我們提供專業的日式髮型設計與化妝服務，讓您的和服造型更加完美。</p>
+                <h2 class="text-2xl font-bold mt-8 mb-3 text-gray-800">髮型設計</h2>
+                <p>我們的髮型師會根據您的臉型與選擇的和服款式，為您設計最適合的髮型。包含編髮、盤髮等，並提供多種精美髮飾供您租借（部分需額外付費）。</p>
+                <ul class="list-disc pl-5 mt-4 space-y-2 text-gray-700">
+                    <li><strong>簡易髮型：</strong> 包含在標準方案內。</li>
+                    <li><strong>精緻髮型：</strong> NT$ 500 (包含指定髮飾)</li>
+                </ul>
+                <h2 class="text-2xl font-bold mt-8 mb-3 text-gray-800">化妝服務</h2>
+                <p>由專業化妝師提供的全套日式妝容服務，讓您上鏡更好看。</p>
+                <ul class="list-disc pl-5 mt-4 space-y-2 text-gray-700">
+                    <li><strong>重點化妝：</strong> NT$ 300 (眼妝、唇彩)</li>
+                    <li><strong>全套妝容：</strong> NT$ 800 (底妝至全臉完妝)</li>
+                </ul>
+                <img src="https://placehold.co/800x400/d946ef/ffffff?text=髮型與化妝範例" alt="髮型與化妝範例" class="w-full rounded-lg shadow-md mt-6" />
+            `;
+            renderStaticPage('髮型設計及化妝服務', content);
+        }
+
+        /**
+         * 渲染 - 店內介紹 (*** 完整版 ***)
+         */
+        function renderStoreIntro() {
+            const content = `
+                <p class="text-lg text-gray-700 mb-6">歡迎來到 Niconico Kimono Rental！我們擁有寬敞舒適的店內環境，讓您能輕鬆自在地挑選您喜愛的和服。</p>
+                
+                <style>
+                    .store-gallery-item {
+                        position: relative;
+                        cursor: pointer;
+                    }
+                    .store-gallery-cover::after {
+                        content: '點擊查看更多 ›';
+                        position: absolute;
+                        bottom: 20px;
+                        right: 20px;
+                        background-color: rgba(125, 98, 106, 0.9);
+                        color: white;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        z-index: 10;
+                    }
+                </style>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 相簿1：寬敞明亮的接待區 -->
+                    <div class="rounded-lg shadow-md overflow-hidden store-gallery-item">
+                        <div class="store-gallery-cover" onclick="openLightbox(['img/店內2.jpg', 'img/店內3.jpg', 'img/店內4.jpg', 'img/店內5.jpg', 'img/店內6.jpg', 'img/店內7.jpg'], 0)">
+                            <img src="img/店內2.jpg" alt="寬敞明亮的接待區" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/f3e8ff/a855f7?text=接待區'">
+                        </div>
+                        <div class="p-4 bg-white">
+                            <h3 class="font-semibold text-xl text-gray-800">寬敞明亮的接待區</h3>
+                            <p class="text-gray-600 mt-1">我們的工作人員會在此迎接您的到來。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 相簿2：更衣空間及髮型設計區 -->
+                    <div class="rounded-lg shadow-md overflow-hidden store-gallery-item">
+                        <div class="store-gallery-cover" onclick="openLightbox(['img/店內1.jpg', 'img/店內8.jpg', 'img/店內9.jpg', 'img/店內10.jpg'], 0)">
+                            <img src="img/店內1.jpg" alt="更衣空間及髮型設計區" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/f3e8ff/a855f7?text=更衣空間'">
+                        </div>
+                        <div class="p-4 bg-white">
+                            <h3 class="font-semibold text-xl text-gray-800">更衣空間及髮型設計區</h3>
+                            <p class="text-gray-600 mt-1">乾淨舒適的更衣空間，專業造型師為您打造完美髮型。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 相簿3：茶室 -->
+                    <div class="rounded-lg shadow-md overflow-hidden store-gallery-item">
+                        <div class="store-gallery-cover" onclick="openLightbox(['img/茶室1.jpg', 'img/茶室2.jpg', 'img/茶室3.jpg', 'img/茶室4.jpg'], 0)">
+                            <img src="img/茶室1.jpg" alt="茶室" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/ecfdf5/10b981?text=茶室'">
+                        </div>
+                        <div class="p-4 bg-white">
+                            <h3 class="font-semibold text-xl text-gray-800">茶室</h3>
+                            <p class="text-gray-600 mt-1">傳統日式茶室，提供租借服務及拍攝體驗。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 相簿4：服務親切的店員們 -->
+                    <div class="rounded-lg shadow-md overflow-hidden store-gallery-item" id="staff-gallery">
+                        <div class="store-gallery-cover" onclick="openLightbox(['https://placehold.co/600x800/fef3c7/f59e0b?text=店員照片'], 0)">
+                            <img src="https://placehold.co/600x400/fef3c7/f59e0b?text=服務親切的店員們" alt="服務親切的店員們" class="w-full h-auto object-cover">
+                        </div>
+                        <div class="p-4 bg-white">
+                            <h3 class="font-semibold text-xl text-gray-800">服務親切的店員們</h3>
+                            <p class="text-gray-600 mt-1">我們的專業團隊隨時為您提供最貼心的服務。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lightbox 燈箱 -->
+                <div id="lightbox" class="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
+                    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                    <span class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</span>
+                    <div class="lightbox-content">
+                        <img id="lightbox-img" src="" alt="相簿圖片">
+                        <div style="text-align: center; color: white; margin-top: 1rem; font-size: 1.125rem;">
+                            <span id="lightbox-counter"></span>
+                        </div>
+                    </div>
+                    <span class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</span>
+                </div>
+            `;
+            renderStaticPage('店內介紹', content);
+        }
+
+        /**
+         * 渲染 - 茶室 (*** 完整版 ***)
+         */
+        function renderTeaRoom() {
+            const content = `
+                <p class="text-lg text-gray-700 mb-6">除了和服租借，本店更獨家提供傳統日式茶室的租借服務及抹茶體驗。</p>
+                
+                <style>
+                    .tearoom-gallery-item {
+                        position: relative;
+                        cursor: pointer;
+                        margin-bottom: 1.5rem;
+                    }
+                    .tearoom-gallery-cover {
+                        position: relative;
+                    }
+                    .tearoom-gallery-cover::after {
+                        content: '點擊查看更多茶室照片 ›';
+                        position: absolute;
+                        bottom: 20px;
+                        right: 20px;
+                        background-color: rgba(125, 98, 106, 0.9);
+                        color: white;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        z-index: 10;
+                    }
+                </style>
+
+                <!-- 茶室相簿 -->
+                <div class="tearoom-gallery-item">
+                    <div class="tearoom-gallery-cover" onclick="openLightbox(['img/茶室1.jpg', 'img/茶室2.jpg', 'img/茶室3.jpg', 'img/茶室4.jpg'], 0)">
+                        <img src="img/茶室1.jpg" alt="傳統日式茶室" class="w-full rounded-lg shadow-md" onerror="this.src='https://placehold.co/800x500/ecfdf5/10b981?text=傳統日式茶室'" />
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-8 mb-3 text-gray-800">茶室租借方案</h3>
+                <ul class="list-disc pl-5 mt-4 space-y-2 text-gray-700">
+                    <li><strong>A. 自由拍攝方案 (30分鐘)</strong>
+                        <ul class="list-circle pl-6 mt-1">
+                            <li>費用：¥3,000 / 組 (最多4人)</li>
+                            <li>內容：提供茶室空間供您自由拍照留念。</li>
+                            <li><a href="#photo-plans" style="color: #8b1538; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">(如有預約 1 小時的攝影方案，可免費使用茶室）</a></li>
+                        </ul>
+                    </li>
+                    <li class="mt-2"><strong>B. 簡易茶道體驗 (45分鐘)</strong>
+                        <ul class="list-circle pl-6 mt-1">
+                            <li>費用：¥3,500 / 人</li>
+                            <li>內容：包含茶室使用、專業茶道老師指導、抹茶與當季和菓子一份。</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p class="text-gray-700 mt-4">※ 茶室租借及茶道體驗皆採預約制，請於預約和服時一併告知。</p>
+
+                <!-- Lightbox 燈箱 -->
+                <div id="lightbox" class="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
+                    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                    <span class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</span>
+                    <div class="lightbox-content">
+                        <img id="lightbox-img" src="" alt="相簿圖片">
+                        <div style="text-align: center; color: white; margin-top: 1rem; font-size: 1.125rem;">
+                            <span id="lightbox-counter"></span>
+                        </div>
+                    </div>
+                    <span class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</span>
+                </div>
+            `;
+            renderStaticPage('茶室租借服務', content);
+        }
+
+        /**
+         * 渲染 - 客返照片 (*** 完整版 ***)
+         */
+        function renderReviews() {
+            const content = `
+                <style>
+                    .category-btn {
+                        cursor: pointer;
+                        padding: 0.75rem 1.5rem;
+                        border: 2px solid #7d626a;
+                        border-radius: 0.5rem;
+                        background-color: white;
+                        color: #7d626a;
+                        font-weight: 500;
+                        transition: all 0.3s ease;
+                        display: inline-block;
+                        margin: 0.25rem;
+                    }
+                    .category-btn:hover {
+                        background-color: #f3f4f6;
+                    }
+                    .category-btn.active {
+                        background-color: #7d626a;
+                        color: white;
+                    }
+                    .photo-item {
+                        transition: all 0.3s ease;
+                        aspect-ratio: 3/4;
+                        overflow: hidden;
+                    }
+                    .photo-item img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                    .photo-item.hidden {
+                        display: none;
+                    }
+                    .gallery-cover {
+                        position: relative;
+                        cursor: pointer;
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                    }
+                    .gallery-cover::after {
+                        content: '點擊查看更多 ›';
+                        position: absolute;
+                        bottom: 12px;
+                        right: 10px;
+                        background-color: rgba(125, 98, 106, 0.9);
+                        color: white;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        z-index: 10;
+                    }
+                    .gallery-cover img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
+                    }
+                </style>
+
+                <p class="text-lg text-gray-700 mb-6">感謝眾多可愛的客人分享他們在 niconico kimono rental 的美好體驗！</p>
+                
+                <!-- 分類選擇 -->
+                <div class="mb-8 p-6 bg-gray-50 rounded-xl">
+                    <h3 class="text-2xl font-bold text-primary mb-4">⋆˚. 選擇方案分類₊⊹</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="category-btn active" onclick="filterPhotos('all')">全部</button>
+                        <button class="category-btn" onclick="filterPhotos('plan1')">【女士】小紋套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan2')">【女士】高級小紋套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan3')">【女士】蕾絲套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan4')">【女士】二尺袖套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan5')">【女士】訪問服套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan6')">【女士】高級訪問服套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan7')">【女士】黑留袖、色留袖套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan8')">【女士】振袖套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan10')">【男士】和服套餐</button>
+                        <button class="category-btn" onclick="filterPhotos('plan11')">【男士】高級武士服套餐</button>
+                    </div>
+                </div>
+
+                <!-- 振袖子分類區（當選擇振袖時顯示） -->
+                <div id="furisode-subcategory" class="mb-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl hidden">
+                    <h3 class="text-2xl font-bold text-primary mb-4 text-center">✧˚.振袖價位分類</h3>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <button class="furisode-sub-btn active" onclick="filterFurisodeSub('all-furisode')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: #7d626a; color: white; font-weight: 500; transition: all 0.3s ease;">
+                            全部振袖
+                        </button>
+                        <button class="furisode-sub-btn" onclick="filterFurisodeSub('premium')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                            精品振袖 ¥9,900
+                        </button>
+                        <button class="furisode-sub-btn" onclick="filterFurisodeSub('gold')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                            金絲振袖 ¥16,500
+                        </button>
+                        <button class="furisode-sub-btn" onclick="filterFurisodeSub('couture')" style="cursor: pointer; padding: 0.75rem 1.5rem; border: 2px solid #7d626a; border-radius: 0.5rem; background-color: white; color: #7d626a; font-weight: 500; transition: all 0.3s ease;">
+                            高訂振袖 ¥27,500
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 照片網格 -->
+                <div id="photo-grid" class="grid grid-cols-3 gap-4">
+                    
+                    <!-- 振袖照片 - 精品振袖 -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="premium">
+                        <img src="https://placehold.co/400x500/f472b6/ffffff?text=精品振袖1" alt="精品振袖 1">
+                    </div>
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="premium">
+                        <img src="https://placehold.co/400x500/f472b6/ffffff?text=精品振袖2" alt="精品振袖 2">
+                    </div>
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="premium">
+                        <img src="https://placehold.co/400x500/f472b6/ffffff?text=精品振袖3" alt="精品振袖 3">
+                    </div>
+
+                    <!-- 振袖照片 - 金絲振袖 -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="gold">
+                        <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖1" alt="金絲振袖 1">
+                    </div>
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="gold">
+                        <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖2" alt="金絲振袖 2">
+                    </div>
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="gold">
+                        <img src="https://placehold.co/400x500/c026d3/ffffff?text=金絲振袖3" alt="金絲振袖 3">
+                    </div>
+
+                    <!-- 振袖照片 - 高訂振袖（相簿封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="couture">
+                        <div class="gallery-cover" onclick="openLightbox(['img/白精品振袖1.JPG', 'img/白精品振袖2.jpg', 'img/白精品振袖3.jpg'], 0)">
+                            <img src="img/白精品振袖1.JPG" alt="高訂振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 振袖照片 - 銀高訂振袖相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="couture">
+                        <div class="gallery-cover" onclick="openLightbox(['img/銀高訂振袖1.JPG', 'img/銀高訂振袖2.JPG', 'img/銀高訂振袖3.JPG', 'img/銀高訂振袖4.JPG', 'img/銀高訂振袖5.JPG', 'img/銀高訂振袖6.JPG', 'img/銀高訂振袖7.JPG', 'img/銀高訂振袖8.JPG'], 0)">
+                            <img src="img/銀高訂振袖1.JPG" alt="銀高訂振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 振袖照片 - 白金高訂振袖相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="couture">
+                        <div class="gallery-cover" onclick="openLightbox(['img/白金高訂振袖1.JPG', 'img/白金高訂振袖2.JPG', 'img/白金高訂振袖3.JPG', 'img/白金高訂振袖4.JPG', 'img/白金高訂振袖5.JPG', 'img/白金高訂振袖6.JPG', 'img/白金高訂振袖7.JPG'], 0)">
+                            <img src="img/白金高訂振袖1.JPG" alt="白金高訂振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 振袖照片 - 紅高訂振袖相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan8" data-furisode-sub="couture">
+                        <div class="gallery-cover" onclick="openLightbox(['img/紅高訂振袖1.jpg', 'img/紅高訂振袖2.jpg'], 1)">
+                            <img src="img/紅高訂振袖2.jpg" alt="紅高訂振袖相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高訂振袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 範例照片 2 - 男士和服 -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan10">
+                        <img src="https://placehold.co/400x500/818cf8/ffffff?text=嵐山與情侶和服" alt="客返照片 2">
+                    </div>
+
+                    <!-- 蕾絲照片 - 白蕾絲相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan3">
+                        <div class="gallery-cover" onclick="openLightbox(['img/白蕾絲1.jpg', 'img/白蕾絲2.JPG', 'img/白蕾絲3.JPG', 'img/白蕾絲4.JPG', 'img/白蕾絲5.JPG', 'img/白蕾絲6.JPG', 'img/白蕾絲7.JPG'], 0)">
+                            <img src="img/白蕾絲1.jpg" alt="白蕾絲相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=蕾絲封面'">
+                        </div>
+                    </div>
+
+                    <!-- 蕾絲照片 - 藍蕾絲相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan3">
+                        <div class="gallery-cover" onclick="openLightbox(['img/藍蕾絲1.JPG', 'img/藍蕾絲2.JPG', 'img/藍蕾絲3.JPG'], 0)">
+                            <img src="img/藍蕾絲1.JPG" alt="藍蕾絲相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=蕾絲封面'">
+                        </div>
+                    </div>
+
+                    <!-- 蕾絲照片 - 綠粉蕾絲相簿（封面為第2張） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan3">
+                        <div class="gallery-cover" onclick="openLightbox(['img/綠粉蕾絲1.jpg', 'img/綠粉蕾絲2.jpg', 'img/綠粉蕾絲3.jpg', 'img/綠粉蕾絲4.jpg', 'img/綠粉蕾絲5.jpg', 'img/綠粉蕾絲6.jpg', 'img/綠粉蕾絲7.jpg', 'img/綠粉蕾絲8.jpg'], 1)">
+                            <img src="img/綠粉蕾絲2.jpg" alt="綠粉蕾絲相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=蕾絲封面'">
+                        </div>
+                    </div>
+
+                    <!-- 範例照片 4 - 訪問服 -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan5">
+                        <img src="https://placehold.co/400x500/34d399/ffffff?text=祇園與訪問服" alt="客返照片 4">
+                    </div>
+
+                    <!-- 小紋照片 - 紅白小紋相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan1">
+                        <div class="gallery-cover" onclick="openLightbox(['img/紅白小紋1.jpg', 'img/紅白小紋2.jpg'], 0)">
+                            <img src="img/紅白小紋1.jpg" alt="紅白小紋相簿" onerror="this.src='https://placehold.co/400x500/d946ef/ffffff?text=小紋封面'">
+                        </div>
+                    </div>
+
+                    <!-- 小紋照片 - 綠底粉花小紋相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan1">
+                        <div class="gallery-cover" onclick="openLightbox(['img/綠底粉花小紋1.JPG', 'img/綠底粉花小紋2.JPG', 'img/綠底粉花小紋3.JPG', 'img/綠底粉花小紋4.JPG', 'img/綠底粉花小紋5.JPG', 'img/綠底粉花小紋6.JPG'], 0)">
+                            <img src="img/綠底粉花小紋1.JPG" alt="綠底粉花小紋相簿" onerror="this.src='https://placehold.co/400x500/d946ef/ffffff?text=小紋封面'">
+                        </div>
+                    </div>
+
+                    <!-- 二尺袖照片 - 粉二尺袖相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan4">
+                        <div class="gallery-cover" onclick="openLightbox(['img/粉二尺袖5.JPG', 'img/粉二尺袖1.JPG', 'img/粉二尺袖2.JPG', 'img/粉二尺袖3.JPG', 'img/粉二尺袖4.JPG'], 0)">
+                            <img src="img/粉二尺袖5.JPG" alt="粉二尺袖相簿" onerror="this.src='https://placehold.co/400x500/86198f/ffffff?text=二尺袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 二尺袖照片 - 藍二尺袖相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan4">
+                        <div class="gallery-cover" onclick="openLightbox(['img/藍二尺袖 1.JPG', 'img/藍二尺袖 2.JPG', 'img/藍二尺袖 3.JPG', 'img/藍二尺袖 4.JPG'], 0)">
+                            <img src="img/藍二尺袖 1.JPG" alt="藍二尺袖相簿" onerror="this.src='https://placehold.co/400x500/86198f/ffffff?text=二尺袖封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級訪問服照片 - 綠高級訪問相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan6">
+                        <div class="gallery-cover" onclick="openLightbox(['img/綠高級訪問5.JPG', 'img/綠高級訪問1.JPG', 'img/綠高級訪問2.JPG', 'img/綠高級訪問3.JPG', 'img/綠高級訪問4.JPG', 'img/綠高級訪問6.JPG'], 0)">
+                            <img src="img/綠高級訪問5.JPG" alt="綠高級訪問相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高級訪問服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級訪問服照片 - 藍高級訪問相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan6">
+                        <div class="gallery-cover" onclick="openLightbox(['img/藍高級訪問1.JPG', 'img/藍高級訪問2.JPG', 'img/藍高級訪問3.JPG'], 0)">
+                            <img src="img/藍高級訪問1.JPG" alt="藍高級訪問相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高級訪問服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級訪問服照片 - 高級訪問服相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan6">
+                        <div class="gallery-cover" onclick="openLightbox(['img/高級訪問服1.JPG', 'img/高級訪問服2.jpg', 'img/高級訪問服3.jpg', 'img/高級訪問服4.jpg', 'img/高級訪問服5.jpg'], 0)">
+                            <img src="img/高級訪問服1.JPG" alt="高級訪問服相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高級訪問服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級訪問服照片 - 高級武士x高級訪問相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan6">
+                        <div class="gallery-cover" onclick="openLightbox(['img/高級武士x高級訪問1.jpg', 'img/高級武士x高級訪問2.JPG', 'img/高級武士x高級訪問3.JPG', 'img/高級武士x高級訪問4.JPG'], 1)">
+                            <img src="img/高級武士x高級訪問2.JPG" alt="高級武士x高級訪問相簿" onerror="this.src='https://placehold.co/400x500/a21caf/ffffff?text=高級訪問服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級武士服照片 - 高級武士服相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan11">
+                        <div class="gallery-cover" onclick="openLightbox(['img/高級武士服1.jpg', 'img/高級武士服2.jpg', 'img/高級武士服3.jpg', 'img/高級武士服4.jpg', 'img/高級武士服5.jpg'], 0)">
+                            <img src="img/高級武士服1.jpg" alt="高級武士服相簿" onerror="this.src='https://placehold.co/400x500/2563eb/ffffff?text=高級武士服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級武士服照片 - 黑高級武士服相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan11">
+                        <div class="gallery-cover" onclick="openLightbox(['img/黑高級武士服.JPG'], 0)">
+                            <img src="img/黑高級武士服.JPG" alt="黑高級武士服相簿" onerror="this.src='https://placehold.co/400x500/2563eb/ffffff?text=高級武士服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級武士服照片 - 黑銀高級武士服相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan11">
+                        <div class="gallery-cover" onclick="openLightbox(['img/黑銀高級武士服1.jpg', 'img/黑銀高級武士服2.jpg', 'img/黑銀高級武士服3.jpg', 'img/黑銀高級武士服4.jpg', 'img/黑銀高級武士服5.jpg'], 0)">
+                            <img src="img/黑銀高級武士服1.jpg" alt="黑銀高級武士服相簿" onerror="this.src='https://placehold.co/400x500/2563eb/ffffff?text=高級武士服封面'">
+                        </div>
+                    </div>
+
+                    <!-- 高級武士服照片 - 高級武士x高級訪問相簿（封面） -->
+                    <div class="photo-item bg-white rounded-lg shadow-md" data-category="plan11">
+                        <div class="gallery-cover" onclick="openLightbox(['img/高級武士x高級訪問2.JPG', 'img/高級武士x高級訪問3.JPG', 'img/高級武士x高級訪問4.JPG'], 2)">
+                            <img src="img/高級武士x高級訪問4.JPG" alt="高級武士x高級訪問相簿" onerror="this.src='https://placehold.co/400x500/2563eb/ffffff?text=高級武士服封面'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lightbox 燈箱 -->
+                <div id="lightbox" class="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
+                    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                    <span class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</span>
+                    <div class="lightbox-content">
+                        <img id="lightbox-img" src="" alt="相簿圖片">
+                        <div style="text-align: center; color: white; margin-top: 1rem; font-size: 1.125rem;">
+                            <span id="lightbox-counter"></span>
+                        </div>
+                    </div>
+                    <span class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</span>
+                </div>
+            `;
+            renderStaticPage('客返圖', content);
+        }
+
+        /**
+         * 渲染 - 攝影方案 (*** 完整版 - Updated FAQ & IG Link ***)
+         */
+        function renderPhotoPlans() {
+            const content = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+                    
+                    <!-- Left Column: Text -->
+                    <div class="prose max-w-none flex flex-col justify-center" style="min-height: 600px;">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.方案選擇</h3>
+                        
+                        <!-- Plan A -->
+                        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="text-2xl font-semibold text-primary mb-2">Ａ.30分鐘外拍方案（1~2人）</h4>
+                            <p class="text-gray-700 m-0">在周邊的景點（如知恩院、円山公園）快速拍攝。</p>
+                            <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                <li>● <strong>費用：</strong> ¥11,000</li>
+                                <li>● <strong>內容：</strong> 底片30-60張，無精修</li>
+                            </ul>
+                        </div>
+
+                        <!-- Plan B -->
+                        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="text-2xl font-semibold text-primary mb-2">B.60分鐘外拍方案（1~4人）</h4>
+                            <p class="text-gray-700 m-0">可至清水寺、二三年坂等知名景點拍攝。</p>
+                            <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                <li>● <strong>費用：</strong> ¥15,000</li>
+                                <li>● <strong>內容：</strong> 底片60-80張，精修5張</li>
+                            </ul>
+                            <p class="font-bold text-red-500 mt-2 m-0">.ᐟ‪‪.ᐟ可免費在店內茶室拍攝</p>
+                        </div>
+
+                        <!-- Plan C -->
+                        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="text-2xl font-semibold text-primary mb-2">C.60分鐘外拍方案（4~6人）</h4>
+                            <p class="text-gray-700 m-0">可至清水寺、二三年坂等知名景點拍攝。</p>
+                            <ul class="list-none pl-0 mt-2 space-y-1 text-gray-700" style="padding-left: 0;">
+                                <li>● <strong>費用：</strong> ¥20,000</li>
+                                <li>● <strong>內容：</strong> 底片60-80張，精修10張</li>
+                            </ul>
+                            <p class="font-bold text-red-500 mt-2 m-0">.ᐟ‪‪.ᐟ可免費在店內茶室拍攝</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Image -->
+                    <div class="mt-10 md:mt-0">
+                        <img src="img/攝影封面.JPG" alt="專業攝影作品" class="w-full rounded-lg shadow-md" style="aspect-ratio: 4/5; object-fit: cover; object-position: center;" />
+                    </div>
+                </div>
+
+                <!-- Portfolio Section -->
+                <div class="mt-12 border-t pt-8">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.攝影師作品集</h3>
+                    
+                    <style>
+                        .portfolio-container {
+                            overflow-x: auto;
+                            overflow-y: hidden;
+                            scroll-behavior: smooth;
+                            -webkit-overflow-scrolling: touch;
+                            scrollbar-width: thin;
+                            scrollbar-color: #7d626a #f3f4f6;
+                        }
+                        .portfolio-container::-webkit-scrollbar {
+                            height: 8px;
+                        }
+                        .portfolio-container::-webkit-scrollbar-track {
+                            background: #f3f4f6;
+                            border-radius: 4px;
+                        }
+                        .portfolio-container::-webkit-scrollbar-thumb {
+                            background: #7d626a;
+                            border-radius: 4px;
+                        }
+                        .portfolio-container::-webkit-scrollbar-thumb:hover {
+                            background: #5d4650;
+                        }
+                        .portfolio-grid {
+                            display: grid;
+                            grid-template-columns: repeat(11, calc(33.333% - 0.667rem));
+                            gap: 1rem;
+                            padding-bottom: 1rem;
+                        }
+                        .portfolio-item {
+                            position: relative;
+                            aspect-ratio: 3/4;
+                            overflow: hidden;
+                            border-radius: 0.5rem;
+                            cursor: pointer;
+                        }
+                        .portfolio-item img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                        .portfolio-cover::after {
+                            content: '點擊查看更多 ›';
+                            position: absolute;
+                            bottom: 12px;
+                            right: 10px;
+                            background-color: rgba(125, 98, 106, 0.9);
+                            color: white;
+                            padding: 0.5rem 1rem;
+                            border-radius: 0.5rem;
+                            font-size: 0.875rem;
+                            font-weight: 500;
+                            z-index: 10;
+                        }
+                        @media (max-width: 768px) {
+                            .portfolio-grid {
+                                grid-template-columns: repeat(11, calc(50% - 0.5rem));
+                            }
+                        }
+                    </style>
+                    
+                    <div class="portfolio-container not-prose">
+                        <div class="portfolio-grid">
+                        <!-- 藍二尺袖相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/藍二尺袖 1.jpg', 'img/藍二尺袖 2.jpg', 'img/藍二尺袖 3.JPG', 'img/藍二尺袖 4.JPG'], 0)">
+                                <img src="img/藍二尺袖 1.jpg" alt="藍二尺袖">
+                            </div>
+                        </div>
+                        
+                        <!-- 綠高級訪問服相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/綠高級訪問1.JPG', 'img/綠高級訪問2.JPG', 'img/綠高級訪問3.JPG', 'img/綠高級訪問4.JPG', 'img/綠高級訪問5.JPG', 'img/綠高級訪問6.JPG'], 1)">
+                                <img src="img/綠高級訪問2.JPG" alt="綠高級訪問服">
+                            </div>
+                        </div>
+                        
+                        <!-- 白精品振袖相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/白精品振袖1.JPG', 'img/白精品振袖2.jpg', 'img/白精品振袖3.jpg'], 0)">
+                                <img src="img/白精品振袖1.JPG" alt="白精品振袖">
+                            </div>
+                        </div>
+                        
+                        <!-- 白蕾絲相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/白蕾絲1.JPG', 'img/白蕾絲2.jpg', 'img/白蕾絲3.JPG', 'img/白蕾絲4.JPG', 'img/白蕾絲5.JPG', 'img/白蕾絲6.JPG', 'img/白蕾絲7.JPG'], 0)">
+                                <img src="img/白蕾絲1.JPG" alt="白蕾絲">
+                            </div>
+                        </div>
+                        
+                        <!-- 紅白小紋相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/紅白小紋1.jpg', 'img/紅白小紋2.jpg'], 0)">
+                                <img src="img/紅白小紋1.jpg" alt="紅白小紋">
+                            </div>
+                        </div>
+                        
+                        <!-- 高級訪問服相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/高級訪問服1.JPG', 'img/高級訪問服2.jpg', 'img/高級訪問服3.jpg', 'img/高級訪問服4.jpg', 'img/高級訪問服5.jpg'], 0)">
+                                <img src="img/高級訪問服1.JPG" alt="高級訪問服">
+                            </div>
+                        </div>
+                        
+                        <!-- 紅高訂振袖相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/紅高訂振袖1.jpg', 'img/紅高訂振袖2.jpg'], 1)">
+                                <img src="img/紅高訂振袖2.jpg" alt="紅高訂振袖">
+                            </div>
+                        </div>
+                        
+                        <!-- 粉二尺袖相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/粉二尺袖1.JPG', 'img/粉二尺袖2.JPG', 'img/粉二尺袖3.JPG', 'img/粉二尺袖4.JPG', 'img/粉二尺袖5.JPG'], 0)">
+                                <img src="img/粉二尺袖1.JPG" alt="粉二尺袖">
+                            </div>
+                        </div>
+                        
+                        <!-- 高級武士服相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/高級武士服1.jpg', 'img/高級武士服2.jpg', 'img/高級武士服3.jpg', 'img/高級武士服4.jpg', 'img/高級武士服5.jpg'], 0)">
+                                <img src="img/高級武士服1.jpg" alt="高級武士服">
+                            </div>
+                        </div>
+                        
+                        <!-- 高級武士服x高級訪問服相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/高級武士x高級訪問1.jpg', 'img/高級武士x高級訪問2.JPG', 'img/高級武士x高級訪問3.JPG', 'img/高級武士x高級訪問4.JPG'], 1)">
+                                <img src="img/高級武士x高級訪問2.JPG" alt="高級武士服x高級訪問服">
+                            </div>
+                        </div>
+                        
+                        <!-- 綠粉蕾絲相簿 -->
+                        <div class="portfolio-item">
+                            <div class="portfolio-cover" onclick="openLightbox(['img/綠粉蕾絲1.jpg', 'img/綠粉蕾絲2.jpg', 'img/綠粉蕾絲3.jpg', 'img/綠粉蕾絲4.jpg', 'img/綠粉蕾絲5.jpg', 'img/綠粉蕾絲6.jpg', 'img/綠粉蕾絲7.jpg', 'img/綠粉蕾絲8.jpg'], 1)">
+                                <img src="img/綠粉蕾絲2.jpg" alt="綠粉蕾絲" style="object-position: center 65%;">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lightbox -->
+                <div id="lightbox" class="lightbox">
+                    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                    <span class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</span>
+                    <div class="lightbox-content">
+                        <img id="lightbox-img" src="" alt="放大檢視">
+                    </div>
+                    <span class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</span>
+                </div>
+
+                <!-- FAQ Section (Updated Content) -->
+                <div class="mt-12 border-t pt-8 prose max-w-none">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.常見Ｑ＆Ａ</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-xl font-semibold text-primary mt-0 mb-1">Ｑ：精修包含哪些？</h4>
+                            <p class="text-gray-700 m-0">Ａ： 調色、臉部微調（皮膚、瘦臉等等），以自然為主。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-primary mt-0 mb-1">Ｑ：如果下雨會怎麼辦？</h4>
+                            <p class="text-gray-700 m-0">Ａ：小雨會照常拍攝，攝影師會準備透明雨傘作為道具。若遇暴雨，可免費改期或取消。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-primary mt-0 mb-1">Ｑ：照片大概多久會拿到？</h4>
+                            <p class="text-gray-700 m-0">Ａ：底片會於 3-5天內提供下載連結。精修照片會於 2 週內提供。</p>
+                        </div>
+                         <div>
+                            <h4 class="text-xl font-semibold text-primary mt-0 mb-1">Ｑ：會去哪裡拍攝？</h4>
+                            <p class="text-gray-700 m-0">Ａ：可與攝影師討論喜歡的風格、場景，再決定要去哪裡拍攝。</p>
+                        </div>
+                    </div>
+
+                    <!-- Add Notes and IG Link (Updated Text & Link) -->
+                    <div class="mt-6 text-sm text-gray-600 not-prose">
+                         <p class="mb-1">※照片下載連結期限為30天，30天後將會刪除檔案。</p>
+                         <p class="mb-4">※所有照片皆經過客人同意才會上傳到官網、Instagram。</p>
+                         <a href="https://www.instagram.com/gagaq9q9" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition duration-300 no-underline shadow-md">
+                            攝影師Instagram ੯‧̀͡u\
+                         </a>
+                    </div>
+                </div>
+            `;
+            renderStaticPage('⌁ ₊攝影方案⌁ ₊', content);
+        }
+
+        // 全局 FAQ 折疊功能
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-icon');
+            
+            // 切換當前項目（允許同時展開多個問題）
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        // 全局照片篩選功能
+        function filterPhotos(category) {
+            // 更新按鈕狀態
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 顯示/隱藏振袖子分類
+            const furisodeSubcategory = document.getElementById('furisode-subcategory');
+            if (furisodeSubcategory) {
+                if (category === 'plan8') {
+                    furisodeSubcategory.classList.remove('hidden');
+                } else {
+                    furisodeSubcategory.classList.add('hidden');
+                }
+            }
+
+            // 篩選照片
+            const photos = document.querySelectorAll('.photo-item');
+            photos.forEach(photo => {
+                if (category === 'all' || photo.dataset.category === category) {
+                    photo.classList.remove('hidden');
+                } else {
+                    photo.classList.add('hidden');
+                }
+            });
+
+            // 重置振袖子分類篩選
+            if (category === 'plan8') {
+                filterFurisodeSub('all-furisode', true);
+            }
+        }
+
+        // 振袖子分類篩選功能
+        function filterFurisodeSub(type, skipButtonUpdate) {
+            // 更新按鈕狀態
+            if (!skipButtonUpdate) {
+                const buttons = document.querySelectorAll('.furisode-sub-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.backgroundColor = 'white';
+                    btn.style.color = '#7d626a';
+                });
+                event.target.classList.add('active');
+                event.target.style.backgroundColor = '#7d626a';
+                event.target.style.color = 'white';
+            }
+
+            // 篩選振袖照片
+            const photos = document.querySelectorAll('.photo-item[data-category="plan8"]');
+            photos.forEach(photo => {
+                if (type === 'all-furisode' || photo.dataset.furisodeSub === type) {
+                    photo.classList.remove('hidden');
+                } else {
+                    photo.classList.add('hidden');
+                }
+            });
+        }
+
+        // 生成 Footer HTML
+        function getFooterHTML() {
+            return `
+                <footer class="bg-primary text-white mt-16 rounded-xl overflow-hidden">
+                    <div class="p-8 md:p-12">
+                        <!-- 上半部：品牌和導航 -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                            <!-- 左側：品牌資訊 -->
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4">✿⁺◟ Niconico Kimono rental</h3>
+                                <p class="text-sm text-gray-200 mb-4">京都和服租借第一選擇<br>讓您的京都之旅更加美好</p>
+                            </div>
+                            
+                            <!-- 中間：快速連結 -->
+                            <div>
+                                <h4 class="text-lg font-semibold mb-4">快速連結</h4>
+                                <div class="space-y-2 text-sm">
+                                    <a href="#kimono-plans" class="block hover:text-accent-pink transition">和服方案</a>
+                                    <a href="#photo-plans" class="block hover:text-accent-pink transition">攝影方案</a>
+                                    <a href="#tea-room" class="block hover:text-accent-pink transition">茶室租借</a>
+                                    <a href="#reviews" class="block hover:text-accent-pink transition">客返圖</a>
+                                    <a href="#faq" class="block hover:text-accent-pink transition">常見問題</a>
+                                    <a href="#access" class="block hover:text-accent-pink transition">交通資訊</a>
+                                </div>
+                            </div>
+                            
+                            <!-- 右側：店鋪資訊 -->
+                            <div>
+                                <h4 class="text-lg font-semibold mb-4">店鋪資訊</h4>
+                                <div class="space-y-3 text-sm">
+                                    <div>
+                                        <p class="font-semibold">【祇園店】</p>
+                                        <p class="text-gray-200">〒605-0066<br>京都市東山区石橋町307-9</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">【清水寺店】</p>
+                                        <p class="text-gray-200">〒605-0846<br>京都府京都市東山区五条橋東6丁目583-70</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="font-semibold">營業時間</p>
+                                        <p class="text-gray-200">9:00 ～ 17:30</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 下半部：社交媒體和版權 -->
+                        <div class="border-t border-gray-400 pt-6">
+                            <div class="flex flex-col md:flex-row justify-between items-center">
+                                <!-- 社交媒體圖標 -->
+                                <div class="flex gap-4 mb-4 md:mb-0">
+                                    <a href="https://www.instagram.com/Niconico_kimono" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+                                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:1.5rem; height:1.5rem;" />
+                                    </a>
+                                    <a href="https://line.me/ti/p/@922yxvwt" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+                                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/line.svg" alt="Line" style="width:1.5rem; height:1.5rem;" />
+                                    </a>
+                                    <a href="https://xhslink.com/m/3AIAkChZ3Hd" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+                                        <svg viewBox="0 0 24 24" style="width:1.5rem; height:1.5rem; fill:#ff2442;">
+                                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 13.5c-.276 0-.5-.224-.5-.5V9.5c0-.276.224-.5.5-.5s.5.224.5.5V15c0 .276-.224.5-.5.5zm-7 0c-.276 0-.5-.224-.5-.5V9.5c0-.276.224-.5.5-.5s.5.224.5.5V15c0 .276-.224.5-.5.5zm3.5-1c-1.381 0-2.5-1.119-2.5-2.5S10.619 9.5 12 9.5s2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <!-- 版權資訊 -->
+                                <div class="text-sm text-gray-200">
+                                    © 2025 Niconico Kimono Rental. All rights reserved.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        // Lightbox 相簿功能
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        function openLightbox(images, startIndex = 0) {
+            currentLightboxImages = images;
+            currentLightboxIndex = startIndex;
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.add('active');
+                showLightboxImage();
+            }
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+            }
+        }
+
+        function changeLightboxImage(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex >= currentLightboxImages.length) {
+                currentLightboxIndex = 0;
+            }
+            if (currentLightboxIndex < 0) {
+                currentLightboxIndex = currentLightboxImages.length - 1;
+            }
+            showLightboxImage();
+        }
+
+        function showLightboxImage() {
+            const img = document.getElementById('lightbox-img');
+            const counter = document.getElementById('lightbox-counter');
+            if (img && currentLightboxImages[currentLightboxIndex]) {
+                img.src = currentLightboxImages[currentLightboxIndex];
+                if (counter) {
+                    counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+                }
+            }
+        }
+
+        // 全局振袖分類篩選功能
+        function filterFurisode(type) {
+            // 更新按鈕狀態
+            const buttons = document.querySelectorAll('.furisode-category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.backgroundColor = 'white';
+                btn.style.color = '#7d626a';
+            });
+            event.target.classList.add('active');
+            event.target.style.backgroundColor = '#7d626a';
+            event.target.style.color = 'white';
+
+            // 篩選照片
+            const photos = document.querySelectorAll('.furisode-photo');
+            photos.forEach(photo => {
+                if (type === 'all' || photo.dataset.furisodeType === type) {
+                    photo.style.display = 'block';
+                } else {
+                    photo.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * 渲染 - 常見問題 (*** 完整版 ***)
+         */
+        function renderFaq() {
+            const content = `
+                <style>
+                    .faq-item {
+                        border-bottom: 1px solid #e5e7eb;
+                        margin-bottom: 0;
+                    }
+                    .faq-question {
+                        cursor: pointer;
+                        padding: 1rem 0;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        transition: all 0.3s ease;
+                    }
+                    .faq-question:hover {
+                        color: #7d626a;
+                    }
+                    .faq-answer {
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.3s ease;
+                        padding: 0 0;
+                    }
+                    .faq-answer.active {
+                        max-height: 500px;
+                        padding: 0 0 1rem 0;
+                    }
+                    .faq-icon {
+                        transition: transform 0.3s ease;
+                        font-size: 1.2rem;
+                        color: #7d626a;
+                    }
+                    .faq-icon.active {
+                        transform: rotate(180deg);
+                    }
+                </style>
+
+                <div class="space-y-8">
+                    <!-- 預約相關資訊 -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.預約相關資訊</h2>
+                        <div class="space-y-0">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：當日可以預約嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">建議提前預約！但若當天有空檔，也可接受預約。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：可以預留和服嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">非常歡迎！可以在我們的Instagram上聯絡要預留哪一款。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：當天還可以更改方案嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">即使有預留款，當天若看到更喜歡的也可以更改。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：行李、衣物可以寄放嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">可以把您的行李、衣物都免費寄放在店裡，但建議貴重物品自行保管。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：當日取消或更改日期會額外收費用嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">若於當日取消預約，將酌收50% 的取消費用。<br>若於前一日或更早通知取消／更改日期，則不會產生任何費用。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 著裝和髮型 -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.著裝和髮型</h2>
+                        <div class="space-y-0">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：租借和服需要帶什麼嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">基本上什麼都不用帶！我們會提供全套服裝與配件。<br>建議冬天時穿著 V 領或 U 領的發熱衣以及七分長發熱褲在和服內保暖。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：著裝及做髮型大概需要多長時間</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">從挑選和服到穿著完畢，加上髮型設計，平均約需 45 到 60 分鐘。<br>（如有預約餐廳、攝影等等，有時間壓力的請提前告知我們。）</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：懷孕可以穿和服嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">考量到穿著和服時的身體負擔，我們目前無法接待孕期顧客，還請您多加見諒。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：如果不小心弄髒了和服，該怎麼辦</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">若是輕微污漬(如灰塵或雨水濺濕），請在歸還時告知我們工作人員即可。<br>若是明顯污損（例如飲料、油漬、破損等），則會跟您收取清潔費用。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：請問你們會有隱藏收費嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">A：不會！本店的方案價格已包含和服、腰帶、草履、手提包、髮型設計、穿著服務等全部基本內容，請安心預約。<br>.ᐟ‪‪.ᐟ以下情形則可能會產生額外費用：延遲歸還、加購攝影服務、升級腰帶等等，如有升級選項或額外費用，我們都會提前清楚告知。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 營業時間及歸還時間 -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.營業時間及歸還相關資訊</h2>
+                        <div class="space-y-0">
+                            <div class="faq-item" id="return-time-faq">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：最晚歸還時間是幾點</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">請於當日下午 17:30 前歸還。<br>如需隔日歸還，需付押金 ¥10,000，並於隔日中午 12:00 前歸還。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：營業時間是幾點</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">一般營業時間是9:00 ～ 17:30<br>如需預約營業時間以外的服務，請至少提前 3 日與我們聯繫。<br>（最早可預約 6:00，但需提前告知並支付訂金）</p>
+                                </div>
+                            </div>
+                            <div class="faq-item" id="cross-store-return-faq">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：可以跨店歸還嗎</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">可以在Ａ店租Ｂ店還<a href="#access" class="font-semibold hover:underline transition duration-150" style="color: #8B0000;">（目前有祇園店、清水寺店）</a><br>如需跨店歸還請提前告知</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 付款方式 -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4" style="font-weight: 600;">✧˚.付款方式</h2>
+                        <div class="space-y-0">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <h3 class="text-xl font-semibold text-primary">Ｑ：有什麼支付方式</h3>
+                                    <span class="faq-icon">▼</span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p class="text-gray-700">本店提供現金、Wechat、支付寶。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 聯絡資訊 -->
+                    <div class="mt-8 pt-6 border-t">
+                        <p class="text-lg text-gray-700">
+                            ⌁ ₊如有其他問題，歡迎諮詢 
+                            <a href="https://www.instagram.com/Niconico_kimono" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-accent-pink font-semibold transition duration-150">
+                                @Niconico_kimono
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            `;
+            renderStaticPage('常見問題', content);
+        }
+
+
+        /**
+         * 渲染 - 交通資訊 (*** 完整版 ***)
+         */
+         function renderAccess() {
+            const content = `
+                <p class="text-lg text-gray-700 mb-4">我們的店舖位於交通便利的地點，方便您前往各大景點。</p>
+                
+                <h2 class="text-2xl font-bold mt-8 mb-3">【祇園店】</h2>
+                <p><strong>地址：</strong> 〒605-0066 京都市東山区石橋町307-9</p>
+                <p class="mt-2"><strong>交通方式：</strong></p>
+                <ul class="list-none pl-0 mt-2 space-y-2 text-gray-700" style="padding-left: 0;">
+                    <li>● 搭乘巴士 46、86、201、202、203、206號，於「知恩院前」站下車，步行 1 分鐘。</li>
+                    <li>● 地下鐵東西線「東山駅」2號出口出站，步行約9分鐘。</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-3">【清水寺店】</h2>
+                <p><strong>地址：</strong> 〒605-0846 京都府京都市東山区五条橋東6丁目583-70</p>
+                <p class="mt-2"><strong>交通方式：</strong></p>
+                <ul class="list-none pl-0 mt-2 space-y-2 text-gray-700" style="padding-left: 0;">
+                                        <li>● 搭乘巴士 80、86、106、202、206、207號，於「五條坂」站下車，步行 5 分鐘。</li>
+                </ul>
+
+                <!-- 祇園店地圖 -->
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold mt-8 mb-3">【祇園店地圖】</h2>
+                    <div class="mt-4">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20174.467067674315!2d135.7549788647125!3d35.003396415900404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600109c0ffa568af%3A0xfe0fb22f0e6f8c44!2za2ltb25v44Os44Oz44K_44Orbmljb25pY28!5e0!3m2!1szh-TW!2sjp!4v1762393895787!5m2!1szh-TW!2sjp" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0; border-radius: 0.5rem;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 text-center">
+                        <a href="https://www.google.com/maps/search/〒605-0066+京都市東山区石橋町307-9" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">
+                            在 Google 地圖中查看
+                        </a>
+                    </p>
+                </div>
+
+                <!-- 清水寺店地圖 -->
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold mt-8 mb-3">【清水寺店地圖】</h2>
+                    <div class="mt-4">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d817.1142949654584!2d135.77909736961524!3d34.99525909830104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600109b83e3ac30d%3A0xb86c30bf2787560f!2z5Lqs5pyq5L6G!5e0!3m2!1szh-TW!2sjp!4v1762394269993!5m2!1szh-TW!2sjp" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0; border-radius: 0.5rem;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 text-center">
+                        <a href="https://www.google.com/maps/search/〒605-0846+京都府京都市東山区五条橋東6丁目583-70" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">
+                            在 Google 地圖中查看
+                        </a>
+                    </p>
+                </div>
+            `;
+            renderStaticPage('交通資訊', content);
+        }
+
+
+        /**
+         * 3. 路由器：根據 URL Hash 決定渲染哪個頁面 (*** 完整版 ***)
+         */
+        function router() {
+            const hash = window.location.hash.slice(1); // 獲取 # 後面的部分
+
+            // 滾動到頁面頂部
+            window.scrollTo(0, 0);
+
+            if (hash.startsWith('plan/')) {
+                const planId = hash.split('/')[1];
+                renderPlanDetail(planId);
+            } else if (hash === 'home' || hash === '') {
+                renderHome();
+            } else if (hash === 'kimono-plans') {
+                renderKimonoPlans();
+            } else if (hash === 'store-intro') {
+                renderStoreIntro();
+            } else if (hash === 'hair-makeup') {
+                renderHairMakeup(); // 雖然不在導覽列，但保留功能
+            } else if (hash === 'photo-plans') {
+                renderPhotoPlans();
+            } else if (hash === 'tea-room') {
+                renderTeaRoom();
+            } else if (hash === 'reviews') { 
+                renderReviews();
+            } else if (hash === 'faq') {
+                renderFaq();
+            } else if (hash === 'access') {
+                renderAccess();
+            } else {
+                // 預設首頁
+                renderHome();
+            }
+        }
+
+        // ----------------------------------------------------
+        // 4. 事件監聽與初始化
+        // ----------------------------------------------------
+
+        // 當 URL Hash 改變時 (例如使用者點擊連結或使用瀏覽器返回/前進按鈕)
+        window.addEventListener('hashchange', router);
+
+        // 網頁載入時，執行一次路由器來渲染初始頁面
+        window.addEventListener('load', () => {
+            // 如果 Hash 是空的，預設載入首頁
+            if (window.location.hash === '' || window.location.hash === '#' || window.location.hash === '#list') {
+                window.location.hash = '#home';
+            }
+            // 延遲一點點執行 router，確保 DOM 完整
+            setTimeout(router, 0);
+        });
+    </script>
+
+    <!-- 懸浮聯絡我們按鈕 -->
+    <div id="contact-float-btn" class="fixed bottom-6 right-6 z-50">
+        <style>
+            .contact-menu {
+                position: absolute;
+                bottom: 100%;
+                right: 0;
+                margin-bottom: 0.5rem;
+                background: white;
+                border-radius: 0.75rem;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                padding: 0.5rem;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+            }
+            #contact-float-btn:hover .contact-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .contact-item {
+                display: flex;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                margin: 0.25rem 0;
+                border-radius: 0.5rem;
+                color: #4a5568;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+                min-width: 150px;
+            }
+            .contact-item:hover {
+                background: #f7fafc;
+                color: #7d626a;
+            }
+            .contact-item svg, .contact-item img {
+                width: 1.5rem;
+                height: 1.5rem;
+                margin-right: 0.75rem;
+            }
+            .contact-main-btn {
+                background: linear-gradient(135deg, #7d626a 0%, #a855f7 100%);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 2rem;
+                box-shadow: 0 4px 15px rgba(125, 98, 106, 0.4);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+            .contact-main-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(125, 98, 106, 0.5);
+            }
+        </style>
+        
+        <!-- 展開的聯絡選項 -->
+        <div class="contact-menu">
+            <a href="https://www.instagram.com/Niconico_kimono" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+                <span>Instagram</span>
+            </a>
+            <a href="https://line.me/ti/p/@922yxvwt" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/line.svg" alt="LINE">
+                <span>LINE</span>
+            </a>
+            <a href="https://xhslink.com/m/3AIAkChZ3Hd" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <svg viewBox="0 0 24 24" style="fill:#ff2442;">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 13.5c-.276 0-.5-.224-.5-.5V9.5c0-.276.224-.5.5-.5s.5.224.5.5V15c0 .276-.224.5-.5.5zm-7 0c-.276 0-.5-.224-.5-.5V9.5c0-.276.224-.5.5-.5s.5.224.5.5V15c0 .276-.224.5-.5.5zm3.5-1c-1.381 0-2.5-1.119-2.5-2.5S10.619 9.5 12 9.5s2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"/>
+                </svg>
+                <span>小紅書</span>
+            </a>
+        </div>
+        
+        <!-- 主按鈕 -->
+        <div class="contact-main-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>聯絡我們</span>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
